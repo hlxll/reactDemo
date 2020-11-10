@@ -1,11 +1,10 @@
 import React,{Component} from 'react'
-import {Link, withRouter} from 'react-router-dom'
-
-import menuList from '../../route/index'
-import { Menu, Icon } from 'antd';
-const { SubMenu } = Menu;
-import log from '../../assets/image/tu.jpg'
+import {Link, withRouter } from 'react-router-dom'
 import './index.less'
+import menuList from '../../route/index'
+import { Menu } from 'antd';
+const { SubMenu } = Menu;
+// import log from '../../assets/image/tu.jpg'
 class Left extends Component{
     handleClick = (e) =>{
         console.log(e)
@@ -19,7 +18,7 @@ class Left extends Component{
                         key={item.key}
                         title={
                             <span>
-                                <Icon type={item.icon}/>
+                                {/* <Icon type={item.icon}/> */}
                                 <span>{item.title}</span>
                             </span>
                         }
@@ -33,7 +32,7 @@ class Left extends Component{
                 return(
                     <Menu.Item key={item.key}>
                         <Link to={item.key}>
-                            <Icon type={item.icon}/>
+                            {/* <Icon type={item.icon}/> */}
                             <span>{item.title}</span>
                         </Link>
                     </Menu.Item>
@@ -51,7 +50,7 @@ class Left extends Component{
                         key={item.key}
                         title={
                             <span>
-                                <Icon type={item.icon}/>
+                                {/* <Icon type={item.icon}/> */}
                                 <span>{item.title}</span>
                             </span>
                         }
@@ -65,7 +64,7 @@ class Left extends Component{
                 pre.push((
                     <Menu.Item key={item.key}>
                         <Link to={item.key}>
-                            <Icon type={item.icon}/>
+                            {/* <Icon type={item.icon}/> */}
                             <span>{item.title}</span>
                         </Link>
                     </Menu.Item>
@@ -79,10 +78,10 @@ class Left extends Component{
     render(){
         const Ownpath = this.props.location.pathname;
         return(
-            <div>
+            <div className="left" style={{height: '100%',backgroundColor:'#ffffff'}}>
                 <Link to="/" className="left-nav">
                     <header className="left-nav-header">
-                        <img src={log}/>
+                        
                         <span></span>
                     </header>
 
@@ -90,7 +89,7 @@ class Left extends Component{
                 {/* selectedKeys是变化的，根据Ownpath变化定义的 */}
                 <Menu
                     onClick={this.handleClick}
-                    style={{ width: 256 }}
+                    style={{ width: 200 }}
                     defaultSelectedKeys={[Ownpath]}
                     selectedKeys={[Ownpath]}
                     mode="inline"
