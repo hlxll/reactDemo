@@ -10,7 +10,7 @@ export default class App extends Component{
                 <Switch>
                     <Route path="/login" exact component={Login}></Route>
                     <Route path="/admin" exact component={Admin}></Route>
-                    {/* <Redirect to="/admin"/> */}
+                    <Redirect to="/admin"/>
                 </Switch>
             </BrowserRouter>
         )

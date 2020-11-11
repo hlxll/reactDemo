@@ -9,6 +9,10 @@ class Head extends Component{
                     <img/>
                     <span>退出</span>
                 </div>
+                <div>
+                    <span>天气</span>
+                    <span></span>
+                </div>
             </div>
         )
     }

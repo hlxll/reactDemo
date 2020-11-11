@@ -11,7 +11,7 @@ import Product from '../product/product'
 import Line from '../charts/line'
 import Pie from '../charts/pie'
 import Bar from '../charts/bar'
-import { Layout } from 'antd';
+import { Layout } from 'antd'
 import LeftNav from '../../components/Left-Nav/left'
 import Header from '../../components/Head/head'
 const {  Footer, Sider, Content } = Layout;
