@@ -20,7 +20,7 @@ const menuList = [
                 icon: 'mail'
             },
             {
-                title: '商品管理',
+                title: '角色管理',
                 key:'/role',
                 icon: 'mail'
             },
@@ -31,5 +31,27 @@ const menuList = [
             },
         ]
     },
+    {
+        title: '图形',
+        key: '/charts',
+        icon: 'mail',
+        children: [
+            {
+                title: '线形',
+                key:'/charts/line',
+                icon: 'mail'
+            },
+            {
+                title: '树形',
+                key:'/charts/pie',
+                icon: 'mail'
+            },
+            {
+                title: '图形',
+                key:'/charts/bar',
+                icon: 'mail'
+            },
+        ]
+    }
 ]
 export default menuList;

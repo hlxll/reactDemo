@@ -35,7 +35,7 @@ export default class Login extends Component{
         memoryUnit.user = response.data.data.login || '';
         //保存数据到localstorage中,然后每次启动项目，会在index.js中获取local数据，看看有没有登录历史
         storage.saveUser(response.data.data.login)
-        if(response.data && response.data.data.login == 'huanglin'){
+        if(response.data && response.data.data.login === 'huanglin'){
             this.props.history.replace('/admin')
         }
     }
@@ -46,7 +46,7 @@ export default class Login extends Component{
     render(){
         //如果已经登录，自动跳转admin页面
         const user = memoryUnit.user
-        if(user && user=='huanglin'){
+        if(user && user === 'huanglin'){
             return <Redirect to="/admin"/>
         }
         //组件使用form表单的高阶组件，form表单传入本组件form的功能

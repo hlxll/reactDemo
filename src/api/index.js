@@ -1,7 +1,7 @@
 import ajax from './ajax'
 import jsonp from 'jsonp'
 import {message} from 'antd'
-import { options } from 'less'
+// import { options } from 'less'
 // const BASE = 'http://localhost:3000'
 const BASE = ''
 //配合package设置proxy

@@ -1,5 +1,5 @@
 import React,{ Component } from "react";
-import { HashRouter as Router,Redirect, Route, Switch} from 'react-router-dom'
+import { HashRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
 // import memoryUnit from '../../utils/memoryUnit'
 
 import './admin.less'
