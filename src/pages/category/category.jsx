@@ -1,43 +1,54 @@
 import React,{ Component } from "react";
 import './category.less'
-import {Card, Button, Table, Modal} from 'antd'
+import {Card, Button, Table, Space} from 'antd'
 import {
   PlusOutlined
 } from '@ant-design/icons';
 class Category extends Component{
-  state = {
-    dataSource: [],
-    visible: false,
-    addVisible: false
+
+  constructor(props){
+    super(props)
+    this.showLine = this.showLine.bind(this)
   }
-  openUpdate =(item)=>{
-    console.log(item)
-    this.setState({
-      visible: true
-    })
+  showLine = (text) =>{
+    console.log(text)
   }
-  handleOk = ()=>{
-    this.setState({
-      visible: false
-    })
-  }
-  handleCancel =()=>{
-    this.setState({
-      visible: false
-    })
-  }
-  addHandleOk =()=>{
-    this.setState({
-      addVisible: false
-    })
-  }
-  addHandleCancel =()=>{
-    this.setState({
-      addVisible: false
-    })
-  }
-  initTable =()=>{
-    this.columns = [
+  render(){
+    const title = '一级分类列表'
+    const extra = (<Button><PlusOutlined />添加</Button>)
+    const dataSource = [
+      {
+        key: '1',
+        name: '胡彦斌',
+        age: 32,
+        address: '西湖区湖底公园1号',
+      },
+      {
+        key: '2',
+        name: '胡彦祖',
+        age: 42,
+        address: '西湖区湖底公园1号',
+      },
+      {
+        key: '3',
+        name: '胡彦祖',
+        age: 42,
+        address: '西湖区湖底公园1号',
+      },
+      {
+        key: '4',
+        name: '胡彦祖',
+        age: 42,
+        address: '西湖区湖底公园1号',
+      },
+      {
+        key: '5',
+        name: '胡彦祖',
+        age: 42,
+        address: '西湖区湖底公园1号',
+      },
+    ];
+    const columns = [
       {
         title: '姓名',
         dataIndex: 'name',
@@ -56,13 +67,12 @@ class Category extends Component{
       {
         title: '操作',
         key: 'action',
-        render: (text, Card)=>(
-          <div>
-            {/* 如果想传参数，需要用回调函数，不能直接传参 */}
-            <Button onClick={()=>this.openUpdate(text)}>修改</Button>
-            <Button>子分类</Button>
-          </div>
-        )
+        render: (text, record) =>{
+          <Space size="middle">
+            <Button>详细</Button>
+            <Button onClick={this.showLine(text)}>操作</Button>
+          </Space>
+        }
       }
     ];
   }
@@ -116,7 +126,7 @@ class Category extends Component{
     const title = '一级分类列表'
     const extra = (<Button onClick={()=>{this.setState({addVisible: true})}}><PlusOutlined />添加</Button>)
     return(
-      <div>
+      <div className="category">
         <Card title={title} extra={extra} style={{ width: '100%' }}>
           <Table dataSource={this.state.dataSource} columns={this.columns} />
         </Card>
