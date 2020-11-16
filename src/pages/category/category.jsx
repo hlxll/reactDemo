@@ -5,6 +5,14 @@ import {
   PlusOutlined
 } from '@ant-design/icons';
 class Category extends Component{
+
+  constructor(props){
+    super(props)
+    this.showLine = this.showLine.bind(this)
+  }
+  showLine = (text) =>{
+    console.log(text)
+  }
   render(){
     const title = '一级分类列表'
     const extra = (<Button><PlusOutlined />添加</Button>)
@@ -40,7 +48,6 @@ class Category extends Component{
         address: '西湖区湖底公园1号',
       },
     ];
-    
     const columns = [
       {
         title: '姓名',
@@ -57,9 +64,19 @@ class Category extends Component{
         dataIndex: 'address',
         key: 'address',
       },
+      {
+        title: '操作',
+        key: 'action',
+        render: (text, record) =>{
+          <Space size="middle">
+            <Button>详细</Button>
+            <Button onClick={this.showLine(text)}>操作</Button>
+          </Space>
+        }
+      }
     ];
     return(
-      <div>
+      <div className="category">
         <Card title={title} extra={extra} style={{ width: '100%' }}>
           <Table dataSource={dataSource} columns={columns} />
         </Card>
