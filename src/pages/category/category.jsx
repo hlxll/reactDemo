@@ -1,6 +1,6 @@
 import React,{ Component } from "react";
 import './category.less'
-import {Card, Button, Table, Space} from 'antd'
+import {Card, Button, Table, Modal} from 'antd'
 import {
   PlusOutlined
 } from '@ant-design/icons';
@@ -12,122 +12,6 @@ class Category extends Component{
     addVisible: false,
     parent: true,
     childTitle: ''
-  }
-  openUpdate =(item)=>{
-    this.setState({
-      visible: true
-    })
-  }
-  handleOk = ()=>{
-    this.setState({
-      visible: false
-    })
-  }
-  handleCancel =()=>{
-    this.setState({
-      visible: false
-    })
-  }
-  addHandleOk =()=>{
-    this.setState({
-      addVisible: false
-    })
-  }
-  addHandleCancel =()=>{
-    this.setState({
-      addVisible: false
-    })
-  }
-  render(){
-    const title = '一级分类列表'
-    const extra = (<Button><PlusOutlined />添加</Button>)
-    const dataSource = [
-      {
-        key: '1',
-        name: '胡彦斌',
-        age: 32,
-        address: '西湖区湖底公园1号',
-      },
-      {
-        key: '2',
-        name: '胡彦祖',
-        age: 42,
-        address: '西湖区湖底公园1号',
-      },
-      {
-        key: '3',
-        name: '胡彦祖',
-        age: 42,
-        address: '西湖区湖底公园1号',
-      },
-      {
-        key: '4',
-        name: '胡彦祖',
-        age: 42,
-        address: '西湖区湖底公园1号',
-      },
-      {
-        key: '5',
-        name: '胡彦祖',
-        age: 42,
-        address: '西湖区湖底公园1号',
-      },
-    ];
-    const columns = [
-      {
-        title: '姓名',
-        dataIndex: 'name',
-        key: 'name',
-      },
-      {
-        title: '年龄',
-        dataIndex: 'age',
-        key: 'age',
-      },
-      {
-        title: '住址',
-        dataIndex: 'address',
-        key: 'address',
-      },
-      {
-        title: '操作',
-        key: 'action',
-        render: (text, Card)=>(
-          <div>
-            {/* 如果想传参数，需要用回调函数，不能直接传参 */}
-            <Button onClick={()=>this.openUpdate(text)}>修改</Button>
-            <Button onClick={()=>this.toChild(text)}>子分类</Button>
-          </div>
-        )
-      }
-    ];
-    this.childColumns = [
-      {
-        title: '姓名',
-        dataIndex: 'name',
-        key: 'name',
-      },
-      {
-        title: '年龄',
-        dataIndex: 'age',
-        key: 'age',
-      },
-      {
-        title: '住址',
-        dataIndex: 'address',
-        key: 'address',
-      },
-      {
-        title: '操作',
-        key: 'action',
-        render: (text, Card)=>(
-          <div>
-            {/* 如果想传参数，需要用回调函数，不能直接传参 */}
-            <Button onClick={()=>this.openUpdate(text)}>修改</Button>
-          </div>
-        )
-      }
-    ];
   }
   getDataSource =()=>{
     //后期改为ajax请求得到数据
