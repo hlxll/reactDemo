@@ -4,10 +4,13 @@ import {
     Card,
     Button,
     Input,
-    Table
+    Table,
+    Space
   } from 'antd'
-  import { PlusOutlined } from '@ant-design/icons'
-    export default class ProductHome extends Component{
+import { PlusOutlined } from '@ant-design/icons'
+import './css/productHome.less'
+import { Modal, Form } from 'antd'
+export default class ProductHome extends Component{
     constructor(props){
         super(props)
         this.state = {
@@ -42,24 +45,63 @@ import {
                         </div>
                     )
                 }
-            ]
+            ],
+            showAddUpdate: false
         }
     }
     addProduct =()=>{
-        console.log('添加')
+        this.setState({showAddUpdate: false})
     }
-  render(){
-    return(
-      <div>
-          <Card>
-              <Input/>
-              <Input/>
-              <Button onClick={this.addProduct}><PlusOutlined />添加</Button>
-              <div>
-                <Table key="_id" dataSource={this.state.dataSource} columns={this.state.columns} />
-              </div>
-          </Card>
-      </div>
-    )
-  }
+    render(){
+        return(
+            <div className="productHome">
+                <Card>
+                    <div className="headAddInput">
+                        <Space>
+                            <Input placeholder="请输入姓名"/>
+                            <Input placeholder="请输入价格"/>
+                            <Button onClick={()=>this.setState({showAddUpdate: true})}><PlusOutlined />添加</Button>
+                        </Space>
+                    </div>
+                    <div>
+                    <Table key="_id" dataSource={this.state.dataSource} columns={this.state.columns} />
+                    </div>
+                </Card>
+                <Modal
+                    title="添加"
+                    visible={this.state.showAddUpdate}
+                    onCancel={()=>this.setState({showAddUpdate: false})}
+                    onOk={this.addProduct}
+                >
+                    <Form>
+                        <Form.Item label="name" name="name"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input name'
+                                }
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
+                        <Form.Item label="muchMoney" name="muchMoney"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input monenNum'
+                                }
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit">
+                            Submit
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </Modal>
+            </div>
+        )
+    }
 }
