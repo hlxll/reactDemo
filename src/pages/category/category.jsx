@@ -47,6 +47,16 @@ class Category extends Component{
       childTitle: '一级分类列表->'+text.name
     })
   }
+  initTable =()=>{
+    this.setState({
+      childColumns: [
+        {
+          label:'name',
+          name:'name'
+        }
+      ]
+    })
+  }
   // 为render准备数据
   componentWillMount (){
     this.initTable()
@@ -69,7 +79,7 @@ class Category extends Component{
     }else{
       cardTemplate = (
         <Card title={this.state.childTitle} extra={childExtra} style={{ width: '100%' }}>
-          <Table dataSource={this.state.childDataSource} columns={this.childColumns} />
+          <Table dataSource={this.state.childDataSource} columns={this.state.childColumns} />
         </Card>
       )
     }
