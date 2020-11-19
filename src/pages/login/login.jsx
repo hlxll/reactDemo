@@ -4,9 +4,12 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import { reqLogin } from '../../api/index'
 import memoryUnit from '../../utils/memoryUnit'
 import storage from '../../utils/storage'
-export default class Login extends Component{
-    constructor(){
-        super()
+import { connect } from 'react-redux'
+import addCounter from '../../store/action/counter'
+class Login extends Component{
+    constructor(props){
+        super(props)
+        console.log(this.props)
         this.layout = {
             labelCol: {
               span: 8,
@@ -23,6 +26,9 @@ export default class Login extends Component{
         };
         this.onFinish = this.onFinish.bind(this)
         this.onFinishFailed = this.onFinishFailed.bind(this)
+    }
+    componentDidMount() {
+        this.props.dispatch(addCounter(1))
     }
     onFinish = async (value) =>{
         console.log(value)
@@ -99,3 +105,11 @@ export default class Login extends Component{
         );
     }
 }
+
+const mapStateToProps = (state, props) =>{
+    console.log(state)
+    return{
+        counter: state.counter
+    }
+}
+export default connect(mapStateToProps)(Login)
