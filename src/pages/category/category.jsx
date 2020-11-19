@@ -1,6 +1,6 @@
 import React,{ Component } from "react";
 import './category.less'
-import {Card, Button, Table, Modal} from 'antd'
+import {Card, Button, Table, Space, Modal} from 'antd'
 import {
   PlusOutlined
 } from '@ant-design/icons';
@@ -11,7 +11,90 @@ class Category extends Component{
     visible: false,
     addVisible: false,
     parent: true,
-    childTitle: ''
+    childTitle: '',
+    columns: [],
+    childColumns: []
+  }
+  openUpdate =(item)=>{
+    this.setState({
+      visible: true
+    })
+  }
+  handleOk = ()=>{
+    this.setState({
+      visible: false
+    })
+  }
+  handleCancel =()=>{
+    this.setState({
+      visible: false
+    })
+  }
+  addHandleOk =()=>{
+    this.setState({
+      addVisible: false
+    })
+  }
+  addHandleCancel =()=>{
+    this.setState({
+      addVisible: false
+    })
+  }
+  //初始化表格列内容
+  initTable =() =>{
+    this.setState({
+      childColumns: [{
+        title: '姓名',
+        dataIndex: 'name',
+        key: 'name',
+      },
+      {
+        title: '年龄',
+        dataIndex: 'age',
+        key: 'age',
+      },
+      {
+        title: '住址',
+        dataIndex: 'address',
+        key: 'address',
+      },
+      {
+        title: '操作',
+        key: 'action',
+        render: (text, Card)=>(
+          <div>
+            {/* 如果想传参数，需要用回调函数，不能直接传参 */}
+            <Button onClick={()=>this.openUpdate(text)}>修改</Button>
+          </div>
+        )
+      }],
+      columns: [{
+        title: '姓名',
+        dataIndex: 'name',
+        key: 'name',
+      },
+      {
+        title: '年龄',
+        dataIndex: 'age',
+        key: 'age',
+      },
+      {
+        title: '住址',
+        dataIndex: 'address',
+        key: 'address',
+      },
+      {
+        title: '操作',
+        key: 'action',
+        render: (text, Card)=>(
+          <div>
+            {/* 如果想传参数，需要用回调函数，不能直接传参 */}
+            <Button onClick={()=>this.openUpdate(text)}>修改</Button>
+            <Button onClick={()=>this.toChild(text)}>子分类</Button>
+          </div>
+        )
+      }]
+    })
   }
   getDataSource =()=>{
     //后期改为ajax请求得到数据
@@ -47,16 +130,6 @@ class Category extends Component{
       childTitle: '一级分类列表->'+text.name
     })
   }
-  initTable =()=>{
-    this.setState({
-      childColumns: [
-        {
-          label:'name',
-          name:'name'
-        }
-      ]
-    })
-  }
   // 为render准备数据
   componentWillMount (){
     this.initTable()
@@ -73,7 +146,7 @@ class Category extends Component{
     if (this.state.parent) {
       cardTemplate = (
         <Card title={title} extra={extra} style={{ width: '100%' }}>
-          <Table dataSource={this.state.dataSource} columns={this.columns} />
+          <Table dataSource={this.state.dataSource} columns={this.state.columns} />
         </Card>
       )
     }else{
