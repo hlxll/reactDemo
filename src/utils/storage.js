@@ -1,7 +1,6 @@
 const USER = 'user'
 //原生方法有些不支持，可以使用库store，
-export default{
-    //保存
+export default { //保存
     saveUser(user){
         localStorage.setItem(USER, JSON.stringify(user))
     },

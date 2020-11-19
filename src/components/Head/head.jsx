@@ -6,7 +6,7 @@ class Head extends Component{
                 <div>
                     <span>首页</span>
                     <span>欢迎{}</span>
-                    <img/>
+                    <img alt=""/>
                     <span>退出</span>
                 </div>
                 <div>
