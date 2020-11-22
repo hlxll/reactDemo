@@ -1,4 +1,4 @@
-import React,{ Component } from "react";
+import React,{ Component, Suspense } from "react";
 import { HashRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
 // import memoryUnit from '../../utils/memoryUnit'
 
@@ -13,7 +13,8 @@ import Pie from '../charts/pie'
 import Bar from '../charts/bar'
 import { Layout } from 'antd'
 import LeftNav from '../../components/Left-Nav/left'
-import Header from '../../components/Head/head'
+// import Header from '../../components/Head/head'
+const Header = React.lazy(() => import('../../components/Head/head'));
 const {  Footer, Sider, Content } = Layout;
 class Admin extends Component{
   render(){
@@ -31,7 +32,10 @@ class Admin extends Component{
             <LeftNav/>
           </Sider>
           <Layout>
-            <Header/>
+            {/* 代码分割：Suspense和上面的React.lazy配合使用，懒加载的组件header，当加载过程中就会显示Suspense回调函数的内容 */}
+            <Suspense fallback={<div>loading component</div>}>
+              <Header/>
+            </Suspense>
             <Content>
               <Router>
                 <Switch>
