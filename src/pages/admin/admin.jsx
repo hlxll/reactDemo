@@ -13,6 +13,7 @@ import Pie from '../charts/pie'
 import Bar from '../charts/bar'
 import { Layout } from 'antd'
 import LeftNav from '../../components/Left-Nav/left'
+import ErrorCatch from "../errorCatch";
 // import Header from '../../components/Head/head'
 const Header = React.lazy(() => import('../../components/Head/head'));
 const {  Footer, Sider, Content } = Layout;
