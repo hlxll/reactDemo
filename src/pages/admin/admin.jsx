@@ -40,15 +40,17 @@ class Admin extends Component{
             <Content>
               <Router>
                 <Switch>
-                  <Route path='/home' component={Home}></Route>
-                  <Route path='/category' component={Category}></Route>
-                  <Route path='/role' component={Role}></Route>
-                  <Route path='/user' component={User}></Route>
-                  <Route path='/product' component={Product}></Route>
-                  <Route path='/charts/line' component={Line}></Route>
-                  <Route path='/charts/pie' component={Pie}></Route>
-                  <Route path='/charts/bar' component={Bar}></Route>
-                  <Redirect to='/home'/>
+                  <ErrorCatch>
+                    <Route path='/home' component={Home}></Route>
+                    <Route path='/category' component={Category}></Route>
+                    <Route path='/role' component={Role}></Route>
+                    <Route path='/user' component={User}></Route>
+                    <Route path='/product' component={Product}></Route>
+                    <Route path='/charts/line' component={Line}></Route>
+                    <Route path='/charts/pie' component={Pie}></Route>
+                    <Route path='/charts/bar' component={Bar}></Route>
+                    <Redirect to='/home'/>
+                  </ErrorCatch>
                 </Switch>
               </Router>
             </Content>
