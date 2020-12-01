@@ -1,9 +1,11 @@
 import React,{ Component } from "react";
 class Pie extends Component{
+  componentDidMount(){
+  }
   render(){
     return(
       <div>
-          Pie
+        pie
       </div>
     )
   }
