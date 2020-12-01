@@ -13,6 +13,7 @@ import { Modal, Form } from 'antd'
 export default class ProductHome extends Component{
     constructor(props){
         super(props)
+        this.addProduct = this.addProduct.bind(this)
         this.state = {
             dataSource: [
                 {
