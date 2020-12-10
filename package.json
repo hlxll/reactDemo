@@ -9,6 +9,8 @@
     "@testing-library/user-event": "^12.2.0",
     "antd": "^4.8.0",
     "axios": "^0.21.0",
+    "echarts": "^4.1.0",
+    "echarts-for-react": "^2.0.15-beta.0",
     "jsonp": "^0.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

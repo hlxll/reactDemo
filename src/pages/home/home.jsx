@@ -1,7 +1,115 @@
 import React,{ Component } from "react"
 import './home.less'
 import HocComponent from './common/HocComponent'
+// 引入 ECharts 主模块
+import echarts from 'echarts/lib/echarts';
+// 引入柱状图
+import  'echarts/lib/chart/bar';
+// 引入提示框和标题组件
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
 class Home extends Component{
+  componentDidMount(){
+    var myChart1 = echarts.init(document.getElementById('oneEcharts'))
+    var myChart2 = echarts.init(document.getElementById('twoEcharts'))
+    var myChart3 = echarts.init(document.getElementById('threeEcharts'))
+    myChart1.setOption({
+      title:{
+        text:'商品数量趋势图'
+      },
+      legend:{
+        data:['OFO','摩拜','小蓝']
+      },
+      tooltip:{   //展示数据
+        trigger:'axis'
+      },
+      xAxis:{
+        data:['周一','周二','周三','周四','周五','周六','周日']
+      },
+      yAxis:{
+        type:'value'
+      },
+      series:[
+        {
+          name:'OFO',
+          type:'bar',
+          data:[2000,3000,5500,7000,8000,12000,20000]
+        },{
+          name:'摩拜',
+          type:'bar',
+          data:[1500,3000,4500,6000,8000,10000,15000]
+        },{
+          name:'小蓝',
+          type:'bar',
+          data:[1000,2000,2500,4000,6000,7000,8000]
+        }
+      ]
+  })
+    myChart2.setOption({
+      title:{
+        text:'商品数量趋势图'
+      },
+      legend:{
+        data:['OFO','摩拜','小蓝']
+      },
+      tooltip:{   //展示数据
+        trigger:'axis'
+      },
+      xAxis:{
+        data:['周一','周二','周三','周四','周五','周六','周日']
+      },
+      yAxis:{
+        type:'value'
+      },
+      series:[
+        {
+          name:'OFO',
+          type:'bar',
+          data:[2000,3000,5500,7000,8000,12000,20000]
+        },{
+          name:'摩拜',
+          type:'bar',
+          data:[1500,3000,4500,6000,8000,10000,15000]
+        },{
+          name:'小蓝',
+          type:'bar',
+          data:[1000,2000,2500,4000,6000,7000,8000]
+        }
+      ]
+  })
+  myChart3.setOption({
+    title:{
+      text:'商品数量趋势图'
+    },
+    legend:{
+      data:['OFO','摩拜','小蓝']
+    },
+    tooltip:{   //展示数据
+      trigger:'axis'
+    },
+    xAxis:{
+      data:['周一','周二','周三','周四','周五','周六','周日']
+    },
+    yAxis:{
+      type:'value'
+    },
+    series:[
+      {
+        name:'OFO',
+        type:'bar',
+        data:[2000,3000,5500,7000,8000,12000,20000]
+      },{
+        name:'摩拜',
+        type:'bar',
+        data:[1500,3000,4500,6000,8000,10000,15000]
+      },{
+        name:'小蓝',
+        type:'bar',
+        data:[1000,2000,2500,4000,6000,7000,8000]
+      }
+    ]
+  })
+  }
   HocCom(HComponent){
       return class extends Component {
         render(){
@@ -15,12 +123,11 @@ class Home extends Component{
     const Hoc = this.HocCom(HocComponent)
     return(
       <div className="home">
-        <p>refs转发</p>
-        refs转发，将ref传入子组件，但是ref不会随props传递，在子组件中使用React.forwardRef((props, ref)接收两个参数，获取props和ref
-        对于复用性很大的组件，需要控制子组件时候，可以考虑refs转发
-        <p>fragment</p>
-        使用React.fragment包裹组件，不会在外部形成div，比如特定的table内部的tr内部只能有td，就可以用这个
-        <p>高阶组件</p>
+        <div className="threeEcharts">
+          <div id="oneEcharts" style={{ width: 400, height: 400 }}></div>
+          <div id="twoEcharts" style={{ width: 400, height: 400 }}></div>
+          <div id="threeEcharts" style={{ width: 400, height: 400 }}></div>
+        </div>
         <Hoc />
       </div>
     )

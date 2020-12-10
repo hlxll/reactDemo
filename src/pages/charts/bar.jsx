@@ -1,58 +1,21 @@
-import React,{ Component } from "react";
-class Bar extends Component{
-  constructor(props){
-    super(props)
-    this.state = {
-      yuanHeight : 10,
-      dataArr : [
-          {
-              x: 160,
-              y: 190,
-              yuanHeight: 900
-          },
-          {
-              x: 160,
-              y: 590,
-              yuanHeight: 1500
-          }
-      ]
+import React, { Component } from 'react';
+
+// 引入 ECharts 主模块
+import echarts from 'echarts/lib/echarts';
+// 引入柱状图
+import  'echarts/lib/chart/bar';
+// 引入提示框和标题组件
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
+
+class Echarts extends Component {
+    componentDidMount() {
     }
-    this.canvasZero = this.canvasZero.bind(this)
-  }
-  canvasZero = (canvasId ,dataArr , allHeightColor, allColor, textContent, betweenColor, CanvaOpacity, yuanHeight) =>{
-    console.log(canvasId)
-    console.log(dataArr)
-    console.log(allHeightColor)
-    console.log(allColor)
-    console.log(textContent)
-    console.log(betweenColor)
-    console.log(CanvaOpacity)
-    console.log(yuanHeight)
-  }
-  componentDidMount(){
-    const canvasId = this.$refs.barCanvas
-    const closeTimeOut = setInterval(()=>{
-      this.canvasZero(canvasId, this.state.dataArr, 'rgb(255, 255, 0)', 'rgb(255, 215, 0)', '7000', 'rgb(255, 193, 37)', 'rgba(255, 255, 0, 0.2)', this.state.yuanHeight)
-      if(this.state.yuanHeight>=100){
-          clearInterval(closeTimeOut)
-      }
-      this.setState((prev, props)=>{
-        return {
-          yuanHeight: prev.yuanHeight + 10
-        }
-      })
-  },100)
-  }
-
-
-  render(){
-    return(
-      <div>
-          <canvas id="barCanvas" ref="barCanvas">
-            不支持canvas
-          </canvas>
-      </div>
-    )
-  }
+    render() {
+        return (
+            <div id="bar" style={{ width: 400, height: 400 }}></div>
+        );
+    }
 }
-export default Bar;
+
+export default Echarts;

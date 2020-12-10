@@ -47,7 +47,11 @@ class Admin extends Component{
                 </Switch>
               </Router>
             </Content>
-            <Footer>Footer</Footer>
+            <Footer>
+              <div className="footerDiv">
+                <p>黄林独立完成的后台管理项目</p>
+              </div>
+            </Footer>
           </Layout>
         </Layout>
       </div>
