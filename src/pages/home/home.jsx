@@ -157,11 +157,11 @@ class Home extends Component{
           <div className="">
             <div className="autoDiv">
             <div className="homeImg"></div>
-              <div>
-                <p>huanglin</p>
-                <p>jiesaoizixsa</p>
-                <p>200</p>
-              </div>
+            <div className="homeImgRight">
+              <p>huanglin</p>
+              <p>jiesaoizixsa</p>
+              <p>200</p>
+            </div>
             </div>
           </div>
         </Carousel>

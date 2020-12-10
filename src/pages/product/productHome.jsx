@@ -50,8 +50,26 @@ export default class ProductHome extends Component{
             showAddUpdate: false
         }
     }
-    addProduct =()=>{
+    addProduct =(res)=>{
+        console.log(res)
         this.setState({showAddUpdate: false})
+    }
+    onFinish=(value)=>{
+        console.log(value)
+        let pushArr = [...this.state.dataSource]
+        let newStr = {
+            key: 1,
+            name: value.name,
+            money: value.muchMoney
+        }
+        pushArr.push(newStr)
+        this.setState({
+            dataSource: pushArr,
+            showAddUpdate: false
+        })
+    }
+    onFinishFailed=()=>{
+
     }
     render(){
         return(
@@ -74,7 +92,9 @@ export default class ProductHome extends Component{
                     onCancel={()=>this.setState({showAddUpdate: false})}
                     onOk={this.addProduct}
                 >
-                    <Form>
+                    <Form
+                    onFinish={this.onFinish}
+                    onFinishFailed={this.onFinishFailed}>
                         <Form.Item label="name" name="name"
                             rules={[
                                 {
