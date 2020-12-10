@@ -11,39 +11,39 @@ import 'echarts/lib/component/title';
 export default class App extends React.Component{
   componentDidMount() {
     var myChart = echarts.init(document.getElementById('line'));
-        // 绘制图表
-        myChart.setOption({
-          title:{
-            text:'商品数量趋势图'
-          },
-          legend:{
-            data:['OFO','摩拜','小蓝']
-          },
-          tooltip:{   //展示数据
-            trigger:'axis'
-          },
-          xAxis:{
-            data:['周一','周二','周三','周四','周五','周六','周日']
-          },
-          yAxis:{
-            type:'value'
-          },
-          series:[
-            {
-              name:'OFO',
-              type:'bar',
-              data:[2000,3000,5500,7000,8000,12000,20000]
-            },{
-              name:'摩拜',
-              type:'bar',
-              data:[1500,3000,4500,6000,8000,10000,15000]
-            },{
-              name:'小蓝',
-              type:'bar',
-              data:[1000,2000,2500,4000,6000,7000,8000]
-            }
-          ]
-      })
+      // 绘制图表
+      myChart.setOption({
+        title:{
+          text:'商品数量趋势图'
+        },
+        legend:{
+          data:['OFO','摩拜','小蓝']
+        },
+        tooltip:{   //展示数据
+          trigger:'axis'
+        },
+        xAxis:{
+          data:['周一','周二','周三','周四','周五','周六','周日']
+        },
+        yAxis:{
+          type:'value'
+        },
+        series:[
+          {
+            name:'OFO',
+            type:'bar',
+            data:[2000,3000,5500,7000,8000,12000,20000]
+          },{
+            name:'摩拜',
+            type:'bar',
+            data:[1500,3000,4500,6000,8000,10000,15000]
+          },{
+            name:'小蓝',
+            type:'bar',
+            data:[1000,2000,2500,4000,6000,7000,8000]
+          }
+        ]
+    })
   }
   render(){
     return(

@@ -44,17 +44,17 @@ class Category extends Component{
   initTable =() =>{
     this.setState({
       childColumns: [{
-        title: '姓名',
+        title: '名字',
         dataIndex: 'name',
         key: 'name',
       },
       {
-        title: '年龄',
+        title: '价格',
         dataIndex: 'age',
         key: 'age',
       },
       {
-        title: '住址',
+        title: '剩余数量',
         dataIndex: 'address',
         key: 'address',
       },
@@ -69,17 +69,17 @@ class Category extends Component{
         )
       }],
       columns: [{
-        title: '姓名',
+        title: '类别',
         dataIndex: 'name',
         key: 'name',
       },
       {
-        title: '年龄',
+        title: '种类数量',
         dataIndex: 'age',
         key: 'age',
       },
       {
-        title: '住址',
+        title: '厂家',
         dataIndex: 'address',
         key: 'address',
       },
@@ -102,29 +102,57 @@ class Category extends Component{
       dataSource: [
         {
           key: '1',
-          name: '徐玲玲',
+          name: '家具',
           age: 32,
-          address: '西湖区湖底公园1号',
+          address: '宜家品牌',
+          children: [
+            {
+              key: '1',
+              name: '床',
+              age: 32,
+              address: 100,
+            },
+            {
+              key: '2',
+              name: '被子',
+              age: 32,
+              address: 200,
+            }
+          ]
         },
         {
           key: '2',
-          name: '黄林',
+          name: '书本',
           age: 42,
-          address: '西湖区湖底公园1号',
+          address: '新华书店',
+          children: [
+            {
+              key: '1',
+              name: '高数',
+              age: 32,
+              address: 56,
+            },
+            {
+              key: '2',
+              name: '英语',
+              age: 32,
+              address: 40,
+            }
+          ]
         }
       ],
-      childDataSource: [
-        {
-          key: '1',
-          name: '胡彦斌',
-          age: 32,
-          address: '西湖区湖底公园1号',
-        }
-      ]
+      childDataSource: []
     })
     
   }
   toChild =(text)=>{
+    console.log(text.children)
+    this.setState({
+      childDataSource: []
+    })
+    this.setState({
+      childDataSource: text.children
+    })
     this.setState({
       parent: false,
       childTitle: '一级分类列表->'+text.name
@@ -138,9 +166,13 @@ class Category extends Component{
   componentDidMount (){
     this.getDataSource()
   }
+  addParent=()=>{
+    this.setState({addVisible: true})
+
+  }
   render(){
     const title = '一级分类列表'
-    const extra = (<Button onClick={()=>{this.setState({addVisible: true})}}><PlusOutlined />添加</Button>)
+    const extra = (<Button onClick={this.addParent}><PlusOutlined />添加</Button>)
     const childExtra = (<Button onClick={()=>{this.setState({parent: true})}}><PlusOutlined />返回</Button>)
     let cardTemplate;
     if (this.state.parent) {
@@ -173,7 +205,7 @@ class Category extends Component{
           onOk={this.addHandleOk}
           onCancel={this.addHandleCancel}
         >
-          <p>添加</p>
+          
         </Modal>
       </div>
     )
