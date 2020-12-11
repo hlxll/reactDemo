@@ -4,13 +4,47 @@
 }
 .threeEcharts{
     display: flex;
+    div{
+        margin-right: calc(33% - 400px);
+    }
+}
+.homeMain{
+    display: flex;
+    .homeMainChild{
+        width: 33%;
+    }
 }
 .autoDiv{
     display: flex;
-    .homeImg{
-        width: 20px;
-        height: 20px;
-        background-image: url('./image/tu.jpg');
-        background-size: 20px 20px;
+    .homeImg1{
+        width: 100px;
+        height: 100px;
+        background-image: url('./image/book.jpg');
+        background-size: 100px 100px;
+    }
+    .homeImg2{
+        width: 100px;
+        height: 100px;
+        background-image: url('./image/food.jpg');
+        background-size: 100px 100px;
+    }
+    .homeImg3{
+        width: 100px;
+        height: 100px;
+        background-image: url('./image/chuang.jpg');
+        background-size: 100px 100px;
+    }
+    .Rightmain{
+        height: 100px;
+        width: calc(100% - 100px);
+        padding-left: 10px;
+        p{
+            height: 33px;
+            line-height: 33px;
+            margin: 0;
+        }
+        .link{
+            cursor: pointer;
+        }
     }
 }
