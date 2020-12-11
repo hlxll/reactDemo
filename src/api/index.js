@@ -2,11 +2,11 @@ import ajax from './ajax'
 import jsonp from 'jsonp'
 import {message} from 'antd'
 // import { options } from 'less'
-// const BASE = 'http://localhost:3000'
-const BASE = ''
+const BASE = 'http://localhost:8081'
+// const BASE = ''
 //配合package设置proxy
 
-export const reqLogin = (username, password) =>  ajax(BASE + '/login', {username, password}, 'POST')
+export const reqLogin = (username, password) =>  ajax(BASE + '/Htlogin', {username, password}, 'GET')
 
 export const reqAdduser = (user) => ajax(BASE + '/manager/user/add', {user}, 'POST')
 

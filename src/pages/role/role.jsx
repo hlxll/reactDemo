@@ -2,7 +2,8 @@ import React,{ Component } from "react";
 import {
   Card,
   Button,
-  Table
+  Table,
+  Pagination
 } from 'antd'
 class Role extends Component{
   constructor(){
@@ -10,7 +11,8 @@ class Role extends Component{
     this.state = {
       jurisdiction: true,
       column: [],
-      columnData: []
+      columnData: [],
+      current: 3
     }
     this.initCloumn = this.initCloumn.bind(this)
     this.initData = this.initData.bind(this)
@@ -50,6 +52,12 @@ class Role extends Component{
       ]
   })
   }
+  onChange = page => {
+    console.log(page);
+    this.setState({
+      current: page,
+    });
+  };
   componentWillMount(){
     this.initCloumn()
   }
@@ -67,6 +75,7 @@ class Role extends Component{
       <div>
           <Card title={title}>
             <Table dataSource={this.state.columnData} columns={this.state.column}></Table>
+            <Pagination current={this.state.current} onChange={this.onChange} total={50} />
           </Card>
       </div>
     )

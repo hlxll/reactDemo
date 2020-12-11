@@ -37,13 +37,17 @@ class Login extends Component{
         const response = await reqLogin(username, password)
         //请求数据成功，跳转admin路由
         console.log(response)
-        //将登录数据保存在内存中
-        memoryUnit.user = response.data.data.login || '';
-        //保存数据到localstorage中,然后每次启动项目，会在index.js中获取local数据，看看有没有登录历史
-        storage.saveUser(response.data.data.login)
-        if(response.data && response.data.data.login === 'huanglin'){
+        if(response.data == username){
+            localStorage.setItem('name', username)
             this.props.history.replace('/admin')
         }
+        //将登录数据保存在内存中
+        // memoryUnit.user = response.data.data.login || '';
+        //保存数据到localstorage中,然后每次启动项目，会在index.js中获取local数据，看看有没有登录历史
+        // storage.saveUser(response.data.data.login)
+        // if(response.data && response.data.data.login === 'huanglin'){
+        //     this.props.history.replace('/admin')
+        // }
     }
     
     onFinishFailed = (errorInfo) => {

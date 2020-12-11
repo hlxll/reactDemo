@@ -14,6 +14,7 @@ export default class ProductHome extends Component{
     constructor(props){
         super(props)
         this.addProduct = this.addProduct.bind(this)
+        this.changeTable = this.changeTable.bind(this)
         this.state = {
             dataSource: [
                 {
@@ -42,7 +43,7 @@ export default class ProductHome extends Component{
                     render: (text, index)=>(
                         <div>
                             <Button><Link to="/product/detail">详情</Link></Button>
-                            <Button>修改</Button>
+                            <Button onClick={this.changeTable(index)}>修改</Button>
                         </div>
                     )
                 }
@@ -50,8 +51,29 @@ export default class ProductHome extends Component{
             showAddUpdate: false
         }
     }
-    addProduct =()=>{
+    changeTable=(index)=>{
+        console.log(index)
+    }
+    addProduct =(res)=>{
+        console.log(res)
         this.setState({showAddUpdate: false})
+    }
+    onFinish=(value)=>{
+        console.log(value)
+        let pushArr = [...this.state.dataSource]
+        let newStr = {
+            key: 1,
+            name: value.name,
+            money: value.muchMoney
+        }
+        pushArr.push(newStr)
+        this.setState({
+            dataSource: pushArr,
+            showAddUpdate: false
+        })
+    }
+    onFinishFailed=()=>{
+
     }
     render(){
         return(
@@ -74,7 +96,9 @@ export default class ProductHome extends Component{
                     onCancel={()=>this.setState({showAddUpdate: false})}
                     onOk={this.addProduct}
                 >
-                    <Form>
+                    <Form
+                    onFinish={this.onFinish}
+                    onFinishFailed={this.onFinishFailed}>
                         <Form.Item label="name" name="name"
                             rules={[
                                 {
