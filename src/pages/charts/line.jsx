@@ -7,17 +7,60 @@ import  'echarts/lib/chart/bar';
 // 引入提示框和标题组件
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
-
+import {Row, Col, Form, Input, Button} from 'antd'
+import {queryEchartLine, updataLineEcharts, queryQuanxian} from '../../api/index'
 export default class App extends React.Component{
+  constructor(){
+    super()
+    this.state={
+      quanxian: false
+    }
+  }
   componentDidMount() {
-    var myChart = echarts.init(document.getElementById('line'));
+    let self = this
+    this.initEcharts()
+    queryQuanxian().then(res=>{
+      console.log(res.data)
+      res.data.forEach(ele=>{
+        console.log(ele.username)
+        console.log(localStorage.getItem('name'))
+        if(ele.username == localStorage.getItem('name')){
+          self.setState({
+            quanxian: true
+          })
+        }
+      })
+    })
+  }
+  initEcharts=()=>{
+    let dataName = []
+    let dataOne = []
+    let dataTwo = []
+    let dataThree = []
+    queryEchartLine().then(res=>{
+      console.log(res.data)
+      res.data.forEach(ele=>{
+        dataName.push(ele.name)
+        
+      })
+      res.data[0].num.split(',').forEach(ele=>{
+        console.log()
+        dataOne.push(ele)
+      })
+      res.data[1].num.split(',').forEach(ele=>{
+        dataTwo.push(ele)
+      })
+      res.data[2].num.split(',').forEach(ele=>{
+        dataThree.push(ele)
+      })
+      var myChart = echarts.init(document.getElementById('line'));
       // 绘制图表
       myChart.setOption({
         title:{
-          text:'商品数量趋势图'
+          text:'商品出售数量'
         },
         legend:{
-          data:['OFO','摩拜','小蓝']
+          data:dataName//[]
         },
         tooltip:{   //展示数据
           trigger:'axis'
@@ -30,27 +73,94 @@ export default class App extends React.Component{
         },
         series:[
           {
-            name:'OFO',
+            name:dataName[0],
             type:'bar',
-            data:[2000,3000,5500,7000,8000,12000,20000]
+            data:dataOne
           },{
-            name:'摩拜',
+            name:dataName[1],
             type:'bar',
-            data:[1500,3000,4500,6000,8000,10000,15000]
+            data:dataTwo
           },{
-            name:'小蓝',
+            name:dataName[2],
             type:'bar',
-            data:[1000,2000,2500,4000,6000,7000,8000]
+            data:dataThree
           }
         ]
     })
+    })
+  }
+  onFinish=(value)=>{
+    const {name, num} = value
+    updataLineEcharts(name, num).then(res=>{
+      console.log(res)
+      this.initEcharts()
+    })
+  }
+  onFinishFailed=()=>{
+
   }
   render(){
     return(
       <div>
-        <div id="line" style={{ width: 400, height: 400 }}></div>
-        <div id="pie" style={{ width: 400, height: 400 }}></div>
-        <div id="bar" style={{ width: 400, height: 400 }}></div>
+        <Row>
+          <Col span={12}>
+          <div id="line" style={{ width: 400, height: 400 }}></div>
+          </Col>
+          {
+            this.state.quanxian?
+          
+          <Col span={12}>
+          <div>
+            <p>柱状图配置</p>
+            <Form
+              name="basic"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={this.onFinish}
+              onFinishFailed={this.onFinishFailed}
+            >
+              <Form.Item
+                label="name"
+                name="name"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your name!',
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label="num"
+                name="num"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your num!',
+                  },
+                ]}
+              >
+                <Input placeholder="输入8个数字，按逗号间隔"/>
+              </Form.Item>
+
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Submit
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+          <div>
+            通过设置类别和数量，可对数据进行修改
+          </div>
+          </Col>
+  :''
+  }
+        </Row>
+        
       </div>
       
     )

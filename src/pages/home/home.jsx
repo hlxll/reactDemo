@@ -8,6 +8,7 @@ import  'echarts/lib/chart/bar';
 // 引入提示框和标题组件
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
+import { Row,Col } from "antd";
 class Home extends Component{
   constructor(prop){
     super(prop)
@@ -138,12 +139,16 @@ class Home extends Component{
     return(
       <div className="home">
         <div className="threeEcharts">
-          <div id="oneEchart" style={{ width: 400, height: 400 }}></div>
-          <div id="twoEchart" style={{ width: 400, height: 400 }}></div>
-          <div id="threeEchart" style={{ width: 400, height: 400 }}></div>
+          <Row>
+            <Col span={8}> <div id="oneEchart" style={{ width: 400, height: 400 }}></div></Col>
+            <Col span={8}><div id="twoEchart" style={{ width: 400, height: 400 }}></div></Col>
+            <Col span={8}><div id="threeEchart" style={{ width: 400, height: 400 }}></div></Col>
+          </Row>
         </div>
         <div className="homeMain">
-          <div className="homeMainChild">
+          <Row>
+            <Col span={8}>
+              <div className="homeMainChild">
             <div className="autoDiv">
             <div className="homeImg1"></div>
             <div className="Rightmain">
@@ -153,7 +158,9 @@ class Home extends Component{
             </div>
             </div>
           </div>
-          <div className="homeMainChild">
+            </Col>
+            <Col span={8}>
+              <div className="homeMainChild">
             <div className="autoDiv">
             <div className="homeImg2"></div>
             <div className="Rightmain">
@@ -163,7 +170,9 @@ class Home extends Component{
             </div>
             </div>
           </div>
-          <div className="homeMainChild">
+            </Col>
+            <Col span={8}>
+              <div className="homeMainChild">
             <div className="autoDiv">
             <div className="homeImg3"></div>
             <div className="Rightmain">
@@ -173,6 +182,11 @@ class Home extends Component{
             </div>
             </div>
           </div>
+            </Col>
+          </Row>
+          
+          
+          
         </div>
         <Hoc />
       </div>

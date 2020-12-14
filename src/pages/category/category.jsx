@@ -1,12 +1,14 @@
 import React,{ Component } from "react";
 import './category.less'
-import {Card, Button, Table, Modal} from 'antd'
+import {Card, Button, Table, Modal, message} from 'antd'
 import { Form, Input, Checkbox } from 'antd';
+import {addCategoryPar, queryCategoryPar, queryChildCategoryPar,updateChildCategory} from '../../api/index'
 import {
   PlusOutlined
 } from '@ant-design/icons';
 class Category extends Component{
   state = {
+    childUpdateName: '',
     dataSource: [],
     childDataSource: [],
     visible: false,
@@ -20,31 +22,14 @@ class Category extends Component{
     twoChildren: []
   }
   openUpdate =(item)=>{
-    console.log(this.state.childNum)
-    if(this.state.childNum == 1){
-      this.setState({
-        oneChildren: [{
-          key: '1',
-          name: '床',
-          age: 32,
-          address: 100,
-        }]
-      })
-    }else{
-      this.setState({
-        twoChildren: [{
-          key: '1',
-          name: '床',
-          age: 32,
-          address: 100,
-        }]
-      })
-    }
-    
+    console.log(item.name)
+    // let res = await updateChildCategory()
+    this.setState({
+      childUpdateName :item.name
+    })
     this.setState({
       visible: true
     })
-    console.log(item)
   }
   parentHandleOk=()=>{
     
@@ -79,13 +64,13 @@ class Category extends Component{
       },
       {
         title: '价格',
-        dataIndex: 'age',
-        key: 'age',
+        dataIndex: 'money',
+        key: 'money',
       },
       {
         title: '剩余数量',
-        dataIndex: 'address',
-        key: 'address',
+        dataIndex: 'num',
+        key: 'num',
       },
       {
         title: '操作',
@@ -99,13 +84,13 @@ class Category extends Component{
       }],
       columns: [{
         title: '类别',
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: 'type',
+        key: 'type',
       },
       {
         title: '种类数量',
-        dataIndex: 'age',
-        key: 'age',
+        dataIndex: 'num',
+        key: 'num',
       },
       {
         title: '厂家',
@@ -124,23 +109,14 @@ class Category extends Component{
       }]
     })
   }
-  getDataSource =()=>{
+  getDataSource =async()=>{
     //后期改为ajax请求得到数据
+    let dataSource1 = await queryCategoryPar()
+    console.log(dataSource1)
     this.setState({
-      dataSource: [
-        {
-          key: '1',
-          name: '家具',
-          age: 32,
-          address: '宜家品牌'
-        },
-        {
-          key: '2',
-          name: '书本',
-          age: 42,
-          address: '新华书店'
-        }
-      ],
+      dataSource: dataSource1.data,
+    })
+    this.setState({
       oneChildren: [{
         key: '1',
         name: '床',
@@ -171,7 +147,7 @@ class Category extends Component{
     })
     
   }
-  toChild =(text)=>{
+  toChild = async(text)=>{
     console.log(text)
     this.setState({
       childNum: text.key
@@ -180,17 +156,19 @@ class Category extends Component{
       childDataSource: []
     })
     let children = ''
-    if(text.key == 1){
-      children = this.state.oneChildren
+    if(text.type == '生活用品'){
+      let Childdata = await queryChildCategoryPar(1)
+      children = Childdata.data
     }else{
-      children = this.state.twoChildren
+      let Childdata = await queryChildCategoryPar(2)
+      children = await Childdata.data
     }
     this.setState({
       childDataSource: children
     })
     this.setState({
       parent: false,
-      childTitle: '一级分类列表->'+text.name
+      childTitle: '一级分类列表->'+text.type
     })
   }
   // 为render准备数据
@@ -205,8 +183,10 @@ class Category extends Component{
     this.setState({addVisible: true})
 
   }
-   onFinish = (values) => {
-    console.log('Success:', values);
+   onFinish = async(values) => {
+    console.log()
+    let {name, money} = values
+    let res = await updateChildCategory(name, money)
     this.setState({
       visible: false
     })
@@ -215,6 +195,13 @@ class Category extends Component{
    onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
+  addParentCategory= async (value)=>{
+    const {type, num, address} = value
+    const res = await addCategoryPar(type, num, address)
+    if(res.data == 'ok'){
+      message.info('添加成功')
+    }
+  }
   render(){
     const title = '一级分类列表'
     const extra = (<Button onClick={this.addParent}><PlusOutlined />添加</Button>)
@@ -292,7 +279,61 @@ class Category extends Component{
           onOk={this.addHandleOk}
           onCancel={this.addHandleCancel}
         >
-          
+          <Form
+                        {...this.layout}
+                        name="basic"
+                        initialValues={{
+                            remember: true,
+                        }}
+                        onFinish={this.addParentCategory}
+                        onFinishFailed={this.addParentCategoryFailed}
+                    >
+                        <Form.Item
+                        label="type"
+                        name="type"
+                        rules={[
+                            {
+                            required: true,
+                            message: 'Please input your username!',
+                            },
+                        ]}
+                        >
+                        <Input />
+                        </Form.Item>
+                
+                        <Form.Item
+                        label="num"
+                        name="num"
+                        rules={[
+                            {
+                            required: true,
+                            message: 'Please input your password!',
+                            },
+                        ]}
+                        >
+                        <Input.Password />
+                        </Form.Item>
+                
+                        <Form.Item
+                        label="address"
+                        name="address"
+                        rules={[
+                            {
+                            required: true,
+                            message: 'Please input your address!',
+                            },
+                        ]}
+                        >
+                        <Input.Password />
+                        </Form.Item>
+                
+                        <Form.Item {...this.tailLayout}>
+                            <Button type="primary" htmlType="submit">
+                                Submit
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                        
         </Modal>
       </div>
     )

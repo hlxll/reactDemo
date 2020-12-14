@@ -1,5 +1,5 @@
 import React,{ Component } from "react";
-import {Tooltip, Table, Button, Tabs} from 'antd'
+import {Tooltip, Table, Button, Tabs, Input, Form} from 'antd'
 const { TabPane } = Tabs;
 class User extends Component{
   constructor(){
@@ -63,62 +63,104 @@ class User extends Component{
       data : [
         {
           key: '1',
-          name: 'John Brown',
+          name: 'huanglin',
           age: 32,
-          address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
+          address: '江西南昌',
           quanx: '管理员'
         },
         {
           key: '2',
-          name: 'Jim Green',
+          name: 'xulinlin',
           age: 42,
-          address: 'London No. 2 Lake Park, London No. 2 Lake Park',
+          address: '江西上饶',
           quanx: '普通用户'
         },
         {
           key: '3',
-          name: 'Joe Black',
+          name: 'laoshi',
           age: 32,
-          address: 'Sidney No. 1 Lake Park, Sidney No. 1 Lake Park',
+          address: '江西南昌',
           quanx: '普通用户'
         },
       ],
       data2 : [
         {
           key: '1',
-          name: 'John Brown',
+          name: 'huanglin',
           age: 32,
-          address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
+          address: '江西南昌',
           quanx: '管理员'
         }
       ],
       data3 : [
         {
           key: '2',
-          name: 'Jim Green',
+          name: 'xulinlin',
           age: 42,
-          address: 'London No. 2 Lake Park, London No. 2 Lake Park',
+          address: '江西上饶',
           quanx: '普通用户'
         },
         {
           key: '3',
-          name: 'Joe Black',
+          name: 'laoshi',
           age: 32,
-          address: 'Sidney No. 1 Lake Park, Sidney No. 1 Lake Park',
+          address: '江西南昌',
           quanx: '普通用户'
-        }
+        },
       ],
     }
   }
   callback=()=>{
 
   }
+  onFinish=(res)=>{
+    console.log(res)
+  }
+  onFinishFailed=()=>{
+
+  }
   render(){
     return(
       <div>
         <div className="addUser">
-          <input placeholder="用户名"/>
-          <input placeholder="权限"/>
+          <Form
+           name="basic"
+           initialValues={{
+             remember: true,
+           }}
+           onFinish={this.onFinish}
+           onFinishFailed={this.onFinishFailed}
+         >
+           <Form.Item
+             label="Username"
+             name="username"
+             rules={[
+               {
+                 required: true,
+                 message: 'Please input your username!',
+               },
+             ]}
+           >
+             <Input />
+           </Form.Item>
+           <Form.Item
+             label="version"
+             name="version"
+             rules={[
+               {
+                 required: true,
+                 message: 'Please input your username!',
+               },
+             ]}
+           >
+             <Input />
+           </Form.Item>
+           <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  添加用户
+                </Button>
+            </Form.Item>
+           </Form>
         </div>
         <Tabs defaultActiveKey="1" onChange={this.callback}>
           <TabPane tab="全部用户" key="1">

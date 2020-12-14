@@ -1,12 +1,14 @@
 import React,{ Component } from "react";
 import { Redirect} from 'react-router-dom'
-import { Form, Input, Button, Checkbox } from 'antd';
-import { reqLogin } from '../../api/index'
+import { Form, Input, Button, Checkbox, Tabs } from 'antd';
+import { reqLogin, reqRegister } from '../../api/index'
+import { message } from 'antd';
 import memoryUnit from '../../utils/memoryUnit'
 import storage from '../../utils/storage'
 import { connect } from 'react-redux'
 import './login.less'
 import addCounter from '../../store/action/counter'
+const { TabPane } = Tabs;
 class Login extends Component{
     constructor(props){
         super(props)
@@ -37,9 +39,11 @@ class Login extends Component{
         const response = await reqLogin(username, password)
         //请求数据成功，跳转admin路由
         console.log(response)
-        if(response.data == username){
+        if(response.data.status == 0){
             localStorage.setItem('name', username)
             this.props.history.replace('/admin')
+        }else{
+            message.info('账号密码错误');
         }
         //将登录数据保存在内存中
         // memoryUnit.user = response.data.data.login || '';
@@ -49,7 +53,14 @@ class Login extends Component{
         //     this.props.history.replace('/admin')
         // }
     }
-    
+    onregister=async (value)=>{
+        const {username, password} = value
+        const res = await reqRegister(username, password)
+        console.log(res)
+        if(res.data == 'ok'){
+            message.info('注册成功')
+        }
+    }
     onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
@@ -69,7 +80,9 @@ class Login extends Component{
                     <div className="FormTitle">
                         <span>欢迎登陆</span>
                     </div>
-                    <Form
+                    <Tabs defaultActiveKey="1">
+                        <TabPane tab="Tab 1" key="1">
+                        <Form
                         {...this.layout}
                         name="basic"
                         initialValues={{
@@ -114,6 +127,51 @@ class Login extends Component{
                             </Button>
                         </Form.Item>
                     </Form>
+                        </TabPane>
+                        <TabPane tab="注册" key="2">
+                        <Form
+                        {...this.layout}
+                        name="basic"
+                        initialValues={{
+                            remember: true,
+                        }}
+                        onFinish={this.onregister}
+                        onFinishFailed={this.onregisterFailed}
+                    >
+                        <Form.Item
+                        label="Username"
+                        name="username"
+                        rules={[
+                            {
+                            required: true,
+                            message: 'Please input your username!',
+                            },
+                        ]}
+                        >
+                        <Input />
+                        </Form.Item>
+                
+                        <Form.Item
+                        label="Password"
+                        name="password"
+                        rules={[
+                            {
+                            required: true,
+                            message: 'Please input your password!',
+                            },
+                        ]}
+                        >
+                        <Input.Password />
+                        </Form.Item>
+                        <Form.Item {...this.tailLayout}>
+                            <Button type="primary" htmlType="submit">
+                                注册
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                        </TabPane>
+                    </Tabs>
+                    
                 </div>
                 
             </div>

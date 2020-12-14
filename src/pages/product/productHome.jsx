@@ -7,32 +7,36 @@ import {
     Table,
     Space
   } from 'antd'
+  import {queryProduct, addTableProduct} from '../../api/index'
 import { PlusOutlined } from '@ant-design/icons'
 import './css/productHome.less'
 import { Modal, Form } from 'antd'
 export default class ProductHome extends Component{
+    componentDidMount(){
+        this.queryTable()
+    }
+    queryTable=async()=>{
+        let res =  await queryProduct()
+        this.setState({
+            dataSource: res.data
+        })
+    }
     constructor(props){
         super(props)
         this.addProduct = this.addProduct.bind(this)
         this.changeTable = this.changeTable.bind(this)
         this.state = {
-            dataSource: [
-                {
-                    key: 1,
-                    name: '汽车',
-                    money: 12000
-                }
-            ],
+            dataSource: [],
             columns: [
                 {
                     title: '姓名',
                     dataIndex: 'name',
-                    key: 'name',
+                    key: '_id',
                 },
                 {
                     title: '价格',
                     dataIndex: 'money',
-                    key: 'money',
+                    key: '_id',
                     render: (text, index)=>{
                         return '$'+text;
                     }
@@ -58,19 +62,13 @@ export default class ProductHome extends Component{
         console.log(res)
         this.setState({showAddUpdate: false})
     }
-    onFinish=(value)=>{
-        console.log(value)
-        let pushArr = [...this.state.dataSource]
-        let newStr = {
-            key: 1,
-            name: value.name,
-            money: value.muchMoney
-        }
-        pushArr.push(newStr)
+    onFinish=async(value)=>{
+        let {name, money} = value
+        addTableProduct(name, money)
         this.setState({
-            dataSource: pushArr,
             showAddUpdate: false
         })
+        this.queryTable()
     }
     onFinishFailed=()=>{
 
@@ -97,8 +95,8 @@ export default class ProductHome extends Component{
                     onOk={this.addProduct}
                 >
                     <Form
-                    onFinish={this.onFinish}
-                    onFinishFailed={this.onFinishFailed}>
+                        onFinish={this.onFinish}
+                        onFinishFailed={this.onFinishFailed}>
                         <Form.Item label="name" name="name"
                             rules={[
                                 {
@@ -109,7 +107,7 @@ export default class ProductHome extends Component{
                         >
                             <Input/>
                         </Form.Item>
-                        <Form.Item label="muchMoney" name="muchMoney"
+                        <Form.Item label="money" name="money"
                             rules={[
                                 {
                                     required: true,
